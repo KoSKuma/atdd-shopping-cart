@@ -72,7 +72,7 @@
 			"response": []
 		},
 		{
-			"name": "Get product detail",
+			"name": "get product detail",
 			"event": [
 				{
 					"listen": "test",
@@ -134,6 +134,68 @@
 							"key": "id",
 							"value": "1"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "submit order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "791a4021-a0f9-4d63-8c92-3cc93c232927",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Order id is 8004359103\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.order_id).to.eql(8004359103);",
+							"});",
+							"",
+							"pm.test(\"Total price is 104.95\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.order_price).to.eql(104.95);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cart\" : [\n\t    { \n\t\t\t\"product_id\": 1,\n\t\t\t\"quantity\": 1\n\t    }\n\t],\n    \"shipping_method\" : \"Kerry\",\n    \"shipping_address\" : \"405/37 ถ.มหิดล\",\n    \"shipping_sub_district\" : \"ต.ท่าศาลา\",\n    \"shipping_district\" : \"อ.เมือง\",\n    \"shipping_province\" : \"จ.เชียงใหม่\",\n    \"shipping_zip_code\" : \"50000\",\n    \"recipient_name\" : \"ณัฐญา ชุติบุตร\",\n    \"recipient_phone_number\" : \"0970809292\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/submitOrder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"submitOrder"
 					]
 				}
 			},
