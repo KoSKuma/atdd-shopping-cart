@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "27e84ce1-0870-419f-840d-83672331c99a",
+		"name": "shopping_cart_success",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "search product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d2ba491-80b4-4256-8038-824b59bda69b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Total product is 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Search result has 1 product\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.products.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Product id is 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.products[0].id).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Product name is 43 Piece Dinner Set\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.products[0].product_name).to.eql(\"43 Piece Dinner Set\");",
+							"});",
+							"",
+							"pm.test(\"Product price is 10.00\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.products[0].product_price).to.eql(10.00);",
+							"});",
+							"",
+							"pm.test(\"Product image is /43-piece-dinner-set.png\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.products[0].product_image).to.eql(\"/43-piece-dinner-set.png\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"product"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
